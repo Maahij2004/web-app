@@ -4,23 +4,19 @@ pipeline {
     stages {
         stage('scm') {
             steps {
-<<<<<<< HEAD
-        git branch: 'main', url: 'https://github.com/Maahij2004/web-app .'
-=======
-        git branch: 'main', url: 'https://github.com/anto096/simple-web-app.git'
->>>>>>> d560c39 (first)
+                 git branch: 'main', url: 'https://github.com/Maahij2004/web-app .'
             }
         }
         stage('build') {
             steps {
-               bat "mvn clean"
-               bat "mvn install"
+               sh "mvn clean"
+               sh "mvn install"
 }
 }
 stage('build to images') {
             steps {
                script{
-                  bat 'docker build -t demohub/simplewebapp .'
+                  sh 'docker build -t demohub/simplewebapp .'
                }
     }
 }
@@ -28,46 +24,10 @@ stage('push to hub') {
             steps {
                script{
                  withDockerRegistry(credentialsId: 'Docker_cred', url: 'https://index.docker.io/v1/') {
-                  bat 'docker push demohub/simplewebapp'
+                  sh 'docker push demohub/simplewebapp'
                }
-            }
-<<<<<<< HEAD
-            }
-=======
-            }
 }
 }
-}pipeline {
-    agent any
-
-    stages {
-        stage('scm') {
-            steps {
-        git branch: 'main', url: 'https://github.com/Maahij2004/web-app.git'
-            }
-        }
-        stage('build') {
-            steps {
-               bat "mvn clean"
-               bat "mvn install"
-}
-}
-stage('build to images') {
-            steps {
-               script{
-                  bat 'docker build -t demohub/simplewebapp .'
-               }
-    }
-}
-stage('push to hub') {
-            steps {
-               script{
-                 withDockerRegistry(credentialsId: 'Docker_cred', url: 'https://index.docker.io/v1/') {
-                  bat 'docker push demohub/simplewebapp'
-               }
-            }
-            }
->>>>>>> d560c39 (first)
 }
 }
 }
